@@ -9,7 +9,6 @@ class SearchModel
   {   
     $this->searchParameter = $searchParameter;
     $this->searchNestedArray($incomingData);
-
     return $this->results[0] ?? null;
   }
 
@@ -17,7 +16,6 @@ class SearchModel
   {
     $this->searchParameter = $searchParameter;
     $this->searchNestedArray($incomingData);
-    
     return $this->results;
   }
 
@@ -25,7 +23,6 @@ class SearchModel
   {   
     $this->searchParameter = $searchParameter;
     $this->searchNestedArray($incomingData);
-
     return end($this->results);
   }
 
