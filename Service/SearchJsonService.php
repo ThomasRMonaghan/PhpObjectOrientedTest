@@ -1,33 +1,26 @@
 <?php
 
-class SearchJsonService()
-{
-    public $searchIterativeModel;
-    public $searchFirstModel;
-    public $searchLastModel;
+require_once 'Model/SearchModels/SearchFirstModel.php';
+require_once 'Model/SearchModels/SearchIterativeModel.php';
+require_once 'Model/SearchModels/SearchLastModel.php';
 
-    public function __construct(
-        $searchIterativeModel,
-        $searchFirstModel,
-        $searchLastModel,
-    ) {
-        $this->searchIterativeModel = $searchIterativeModel;
-        $this->searchFirstModel = $searchFirstModel;
-        $this->searchLastModel = $searchLastModel;
+class SearchJsonService
+{
+    public function first()
+    {
+      $searchFirstModel = new searchFirstModel();
+      $searchFirstModel->index();
     }
 
     public function iterative()
     {
-        $this->searchIterativeModel->index();
-    }
-
-    public function first()
-    {
-        $this->searchFirstModel->index();
+      $searchIterativeModel = new SearchIterativeModel();
+      $searchIterativeModel->index();
     }
 
     public function last()
     {
-        $this->searchLastModel->index();
+      $searchLastModel = new searchLastModel();
+      $searchLastModel->index();
     }
 }
