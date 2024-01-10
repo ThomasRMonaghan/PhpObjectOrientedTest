@@ -18,19 +18,15 @@ class MainController
             // go through each key, restructure keys via [9-0 Z-A]
             case "Alphabetical Reverse":
                 return $alphabeticalService->reverse($incomingJsonObject);
-                break;
             // go through each key, return each key value pair which matches specific param 
             case "Search Iterative":
                 return $searchJsonService->iterative($incomingJsonObject, $params);
-                break;
             // go through each key, return first key value pair which matches specific param
             case "Get First":
                 return $searchJsonService->first($incomingJsonObject, $params);
-                break;
             // go through each key, return last key value pair which matches specific param 
             case "Get Last":
                 return $searchJsonService->last($incomingJsonObject, $params);
-                break;
             default:
             // throw exception
         }
