@@ -1,14 +1,14 @@
 <?php
 
 require_once 'Service/AlphabeticalService.php';
-require_once 'Service/SearchJsonService.php';
+require_once 'Service/SearchService.php';
 
 class MainController
 {
-    public function index(string $incomingJsonObject, string $operation, array $params)
+    public function index(string $incomingJsonObject, string $operation, string $param)
     {
-      $alphabeticalService = new AlphabeticalService();
-      $searchJsonService = new SearchJsonService();
+      $alphabeticalService = $this->getAlphabeticalService();
+      $searchJsonService = $this->getSearchService();;
       
         switch ($operation)
         {
@@ -20,15 +20,25 @@ class MainController
                 return $alphabeticalService->reverse($incomingJsonObject);
             // go through each key, return each key value pair which matches specific param 
             case "Search Iterative":
-                return $searchJsonService->iterative($incomingJsonObject, $params);
+                return $searchJsonService->iterative($incomingJsonObject, $param);
             // go through each key, return first key value pair which matches specific param
             case "Get First":
-                return $searchJsonService->first($incomingJsonObject, $params);
+                return $searchJsonService->first($incomingJsonObject, $param);
             // go through each key, return last key value pair which matches specific param 
             case "Get Last":
-                return $searchJsonService->last($incomingJsonObject, $params);
+                return $searchJsonService->last($incomingJsonObject, $param);
             default:
             // throw exception
         }
     }
+
+  private function getAlphabeticalService()
+  {
+    return new AlphabeticalService();
+  }
+  
+  private function getSearchService()
+  {
+    return new SearchService();
+  }
 }

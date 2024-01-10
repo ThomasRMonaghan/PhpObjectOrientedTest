@@ -1,18 +1,27 @@
 <?php
 
-class ReorderModel
-{
-  public function reorderKeysAsc($incomingData)
-  {   
-    array_multisort($incomingData, SORT_ASC, SORT_REGULAR);
+require_once 'Model/ReorderModel.php';
 
-    return $incomingData;
+class AlphabeticalService
+{
+  public function forward($incomingJsonObject)
+  {
+    $reorderModel = $this->getReorderModel();
+    $incomingData = json_decode($incomingJsonObject, true);
+    $reformattedData = $reorderModel->reorderKeysAsc($incomingData);
+    return json_encode($reformattedData);
   }
 
-  public function reorderKeysDesc($incomingData)
-  {   
-    array_multisort($incomingData, SORT_DESC, SORT_REGULAR);
+  public function reverse($incomingJsonObject)
+  {
+    $reorderModel = $this->getReorderModel();
+    $incomingData = json_decode($incomingJsonObject, true);
+    $reformattedData = $reorderModel->reorderKeysDesc($incomingData);
+    return json_encode($reformattedData);
+  }
 
-    return $incomingData;
+  private function getReorderModel()
+  {
+    return new ReorderModel();
   }
 }
