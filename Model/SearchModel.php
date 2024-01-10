@@ -2,22 +2,48 @@
 
 class SearchModel
 {
+  public $searchParameter;
+  public $results = [];
+  
   public function searchForFirstKeyInstance($incomingData, $searchParameter)
   {   
-      array_keys($incomingData, SORT_ASC, SORT_REGULAR);
+    $this->searchParameter = $searchParameter;
+    $this->searchNestedArray($incomingData);
 
-    return $incomingData;
+    return $this->results[0] ?? null;
   }
 
-  public function searchForAllKeyInstances($incomingData, $searchParameter)
-  {   
-    return array_keys($incomingData, $searchParameter);
+  public function searchForAllKeyInstances(array $incomingData, $searchParameter)
+  {
+    $this->searchParameter = $searchParameter;
+    $this->searchNestedArray($incomingData);
+    
+    return $this->results;
   }
 
   public function searchForLastKeyInstance($incomingData, $searchParameter)
   {   
-    return array_keys($incomingData, SORT_ASC, SORT_REGULAR);
+    $this->searchParameter = $searchParameter;
+    $this->searchNestedArray($incomingData);
 
-    return $incomingData;
+    return end($this->results);
+  }
+
+  private function searchNestedArray($incomingData)
+  {
+    return array_walk($incomingData , array($this, 'matchIndex'));
+  }
+
+  private function matchIndex($value,$key)
+  {
+    if (is_array($value))
+    {
+      $this->searchNestedArray($value);
+    }
+
+    if (str_contains($key, $this->searchParameter))
+    {
+      array_push($this->results, $value);
+    }
   }
 }

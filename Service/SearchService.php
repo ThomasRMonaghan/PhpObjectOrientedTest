@@ -13,8 +13,8 @@ class SearchService
     }
 
     public function iterative(string $incomingJsonObject, string $param): string
-    {
-      $searchModel = $this->getSearchModel();
+    {      
+      $searchModel = $this->getSearchModel();      
       $incomingData = json_decode($incomingJsonObject, true);
       $reformattedData = $searchModel->searchForAllKeyInstances($incomingData, $param);
       return json_encode($reformattedData);
